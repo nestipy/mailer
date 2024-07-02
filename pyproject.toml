@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "nestipy-mailer"
-version = "0.1.0"
+version = "0.1.1"
 description = "Nestipy is a Python framework built on top of BlackSheep that follows the modular architecture of NestJS"
 authors = ["tsiresymila <tsiresymila@gmail.com>"]
 readme = "README.md"

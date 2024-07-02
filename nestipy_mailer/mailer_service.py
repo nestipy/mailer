@@ -41,29 +41,23 @@ class MailerService:
             context: dict = None,
             attachments: list[str] = None
     ):
-        try:
-            from_address = _from or self.config.sender
-            message = MIMEMultipart()
-            message["Subject"] = subject
-            message["From"] = from_address
-            message["To"] = to
-            message.attach(MIMEText(text, 'plain', 'utf-8'))
-            if html:
-                message.attach(MIMEText(html, 'html', 'utf-8'))
-            elif template and self.template_engine:
-                html = self.template_engine.render(template, context or {})
-                message.attach(MIMEText(html, 'html', 'utf-8'))
+        from_address = _from or self.config.sender
+        message = MIMEMultipart()
+        message["Subject"] = subject
+        message["From"] = from_address
+        message["To"] = to
+        message.attach(MIMEText(text, 'plain', 'utf-8'))
+        if html:
+            message.attach(MIMEText(html, 'html', 'utf-8'))
+        elif template and self.template_engine:
+            html = self.template_engine.render(template, context or {})
+            message.attach(MIMEText(html, 'html', 'utf-8'))
 
-            if attachments:
-                self._add_attachment(message, attachments)
-            await self.smtp.connect()
-            await self.smtp.send_message(message)
-            self.smtp.close()
-
-        except Exception as e:
-            tb = traceback.format_exc()
-            logger.error(e)
-            logger.error(tb)
+        if attachments:
+            self._add_attachment(message, attachments)
+        await self.smtp.connect()
+        await self.smtp.send_message(message)
+        self.smtp.close();
 
     @classmethod
     def _add_attachment(cls, message: MIMEMultipart, attachments: list[str]):
