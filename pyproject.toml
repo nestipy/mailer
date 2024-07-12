@@ -1,13 +1,12 @@
 [tool.poetry]
 name = "nestipy-mailer"
-version = "0.1.1"
+version = "0.1.2"
 description = "Nestipy is a Python framework built on top of BlackSheep that follows the modular architecture of NestJS"
 authors = ["tsiresymila <tsiresymila@gmail.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.11"
-nestipy = "^0.4.12"
 aiosmtplib = "^3.0.1"
 
 
